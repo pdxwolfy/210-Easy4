@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+      <script>
+/* global show, log, theEnd */
+
+'use strict';
+
+// - Understand the problem
+//   * implicit knowledge
+//   * terminology
+//   * ask questions
+//   * input
+//   * output
+// - Test cases
+//   * edge cases
+//   * handling failure
+//   * ask questions
+// - Data Structure
+//   * input
+//   * output
+//   * rules/logic as data
+// - Algorithm
+//   * use language of data structure (map, split, etc)
+// - Abstraction
+//   * 1-2 sentences
+//*****************************************************************************
+// The problem:
+//   - Write a function that:
+//     - takes a floating point argument between 0 and 360
+//     - the argument has units of degrees
+//     - returns a string that represents the argument in degrees, minutes, and
+//       seconds, e.g., '254°35\'59"'
+//     - minutes and seconds should always be two digits, e.g., '0°00\'00"'
+// Test cases:
+//   - 0 -> '0°00\'00"'
+//   - 360 -> '360°00\'00"' (or '0°00\'00"')
+//   - DMS: 76.73 -> '76°43\'48"'
+//   - DMS with 3 digit degrees: 254.6 -> '254°35\'59"'
+//   - DMS with leading zeros: 93.034773 -> '93°02\'05"'
+// Data structure
+//   input: numeric argument, units of degrees
+//   outout: string argument, 'DDD°MM\'SS"'
+// Algorithm
+//   compute integer degrees from argument
+//   compute remainder in minutes from argument - integer degrees
+//   compute remainder in seconds from argument - integer degress - minutes
+//   return 'degrees°minutes\'seconds"'
+// Abstraction
+
+function leadingZero(string) {
+  return  (string.length === 1) ? ('0' + string) : string;
+}
+
+function dms(degrees) {
+  var wholeDegrees = Math.floor(degrees);
+  var minutes = 60 * (degrees - wholeDegrees);
+  var wholeMinutes = Math.floor(minutes);
+  var seconds = 60 * (minutes - wholeMinutes);
+  var wholeSeconds = Math.floor(seconds);
+  var remainder = 60 * (seconds - wholeSeconds);
+
+  if (remainder >= 0.5) {
+    wholeSeconds = (wholeSeconds + 1) % 60;
+    if (wholeSeconds === 0) {
+      wholeMinutes = (wholeMinutes + 1) % 60;
+      if (wholeMinutes === 0) {
+        wholeDegrees += 1;
+      }
+    }
+  }
+
+  return String(wholeDegrees) + '°' +
+         leadingZero(String(wholeMinutes)) + "'" +
+         leadingZero(String(wholeSeconds)) + '"';
+}
+
+/* eslint-disable vars-on-top */
+/* eslint-disable no-magic-numbers */
+log(dms(0),          '0°00\'00"');
+log(dms(360),        '360°00\'00"');
+log(dms(76.73),      '76°43\'48"');
+log(dms(254.599582), '254°35\'59"');
+log(dms(254.6),      '254°36\'00"');
+log(dms(93.034773),  '93°02\'06"');
+theEnd();
+      </script>
+    </pre>
+  </body>
+</html>
