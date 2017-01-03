@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+      <script>
+'use strict';
+
+// The problem:
+//   - terms/concepts
+//   - inputs
+//     - argument 1: array1, Array of numbers
+//     - argument 2: array2, Array of numbers
+//     - array1 and array2 have same number of elements
+//   - outputs: a new Array of numbers
+//   - rules
+//     - compute product of each pair of numbers from array1, array2
+//     - each product is an element of the output Array
+//   - bad input:
+//     - assume both arguments are Arrays of numbers only
+//     - assume both arguments have the same number of elements
+//
+// Examples/Test cases:
+//   - Happy path tests
+//     - each argument contains 3 values
+//     - reversing arguments reverses result
+//   - Edge case tests
+//     - each argument contains 1 value
+//     - each argument is an empty array
+//
+// Data structure
+//   - inputs: Array, Array
+//   - rules: n/a
+//   - outputs: Array
+//
+// Algorithm
+//   - set result to an empty array
+//   - iterate over both arguments simultaneously
+//     - compute product of both current elements
+//     - push product to result
+//   - return result
+
+function multiplyList(array1, array2) {
+  return array1.map(
+    function (number, index) {
+      return number * array2[index];
+    }
+  );
+}
+
+// test cases
+/* global show, log, theEnd */
+log(multiplyList([3, 5, 7], [9, 10, 11]), [27, 50, 77]);
+log(multiplyList([7, 5, 3], [11, 10, 9]), [77, 50, 27]);
+log(multiplyList([7], [9]), [63]);
+log(multiplyList([], []), []);
+theEnd();
+      </script>
+    </pre>
+  </body>
+</html>

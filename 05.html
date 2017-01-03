@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+      <script>
+/* global show, log, theEnd */
+
+'use strict';
+
+// - Understand the problem
+//   * implicit knowledge
+//   * terminology
+//   * ask questions
+//   * input
+//   * output
+// - Test cases
+//   * edge cases
+//   * handling failure
+//   * ask questions
+// - Data Structure
+//   * input
+//   * output
+//   * rules/logic as data
+// - Algorithm
+//   * use language of data structure (map, split, etc)
+// - Abstraction
+//   * 1-2 sentences
+//*****************************************************************************
+// The problem:
+//   - Write a function that:
+//     - takes 2 Array aguments
+//       - both arguments are non-empty
+//       - both arguments has same number of elements
+//       - assume that both arguments are Arrays that meet these conditions
+//     - returns a new array
+//       - content is all elements from both arguments
+//       - content is taken from arguments in alternation
+//         - array1[0], array2[0], array1[1], array2[1], ...
+// Test cases:
+//   - both arrays contain 1 element
+//   - both arrays contain n elements (n > 1)
+// Data structure
+//   input: array arguments
+//   output: new array
+// Algorithm
+//   - create an empty result array
+//   - for each element of first argument
+//     - append element to result array
+//     - append corresponding element of second argument to result array
+//   - return result array
+// Abstraction
+
+function interleave(array1, array2) {
+  var result = [];
+
+  for (var index = 0; index < array1.length; ++index) {
+    result.push(array1[index], array2[index]);
+  }
+
+  return result;
+}
+
+log(interleave(['a'], [1]), ['a', 1]);
+log(interleave([1, 2, 3], ['a', 'b', 'c']), [1, 'a', 2, 'b', 3, 'c']);
+log(interleave(['a', 'b', 'c'], [1, 2, 3]), ['a', 1, 'b', 2, 'c', 3]);
+theEnd();
+      </script>
+    </pre>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+      <script>
+/* global show, log, theEnd */
+
+'use strict';
+
+// - Understand the problem
+//   * implicit knowledge
+//   * terminology
+//   * ask questions
+//   * input
+//   * output
+// - Test cases
+//   * edge cases
+//   * handling failure
+//   * ask questions
+// - Data Structure
+//   * input
+//   * output
+//   * rules/logic as data
+// - Algorithm
+//   * use language of data structure (map, split, etc)
+// - Abstraction
+//   * 1-2 sentences
+//*****************************************************************************
+// The problem:
+//   - Write a function that:
+//     - takes 1 or more array argumnents
+//       - may contain duplicates in any argument or between any two arguments
+//     - returns a new array
+//       - content is union of elements in the listed argument arrays
+//       - no duplication of element values
+// Test cases:
+//   - assume:
+//     - all arguments are always arrays
+//   - all empty array arguments
+//   - some arguments are empty, some are not
+//   - some arguments have multiple elements
+//     - no dups between arguments
+//     - with dups between arguments
+//     - with dups inside an array argument
+//     - with dups inside all array arguments
+//     - sequence of elements in arrays matters
+// Data structure
+//   input: one or array arguments
+//   output: new array
+//     - elements occur in same sequence in which they would appear if the array
+//       arguments were concatenated.
+// Algorithm
+//   - unionWith targetArray, sourceArray
+//     - reduce sourceArray starting with targetArray
+//       - if element from sourceArray is not in targetArray
+//         - append element from sourceArray to targetArray
+//     - return targetArray
+//
+//   - result is new empty array
+//   - foreach argument
+//     - unionWith result, argument
+//   - return result
+// Abstraction
+
+function includes(array, value) {
+  return array.indexOf(value) > -1;
+}
+
+function unionWith(targetArray, sourceArray) {
+  return sourceArray.reduce(
+    function (target, value) {
+      if (!includes(target, value)) {
+        target.push(value);
+      }
+
+      return target;
+    },
+    targetArray
+  );
+}
+
+function union() {
+  return Array.prototype.slice.call(arguments).reduce(
+    function (targetArray, sourceArray) {
+      return unionWith(targetArray, sourceArray);
+    },
+    []
+  );
+}
+
+log(union([], []), []);                          // Empty arrays
+log(union([], [5, 3]), [5, 3]);                  // first array empty
+log(union([3, 5], []), [3, 5]);                  // second array empty
+log(union([3, 5], [2, 4]), [3, 5, 2, 4]);        // multiple elements in both
+log(union([3, 5, 4], [2, 3, 4]), [3, 5, 4, 2]);  // dups between arrays
+log(union([3, 5, 3], [2, 4]), [3, 5, 2, 4]);     // dups in first array
+log(union([3, 5], [2, 4, 4]), [3, 5, 2, 4]);     // dups in second array
+log(union([3, 5, 3], [2, 2, 4]), [3, 5, 2, 4]);  // dups in both arrays
+log(union([5, 3], [4, 2]), [5, 3, 4, 2]);        // sequence matters
+log(union([], [], []), []);                      // Empty arrays
+log(union([], [5, 3], []), [5, 3]);              // first array empty
+log(union([3, 5], [], [2, 4]), [3, 5, 2, 4]);    // second array empty
+log(union([3, 5], [2, 4], [1]), [3, 5, 2, 4, 1]);// multiple elements in both
+theEnd();
+      </script>
+    </pre>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+      <script>
+'use strict';
+
+// The problem:
+//   - terms/concepts
+//   - inputs
+//     - argument 1: integers, an Array of positive integer Numbers
+//       - all elements are guaranteed to be positive integers
+//       - integers Array is guaranteed to not be empty
+//   - outputs:
+//     - average of elements of integers Array
+//     - truncate average to the integer part of the computed value
+//   - bad input:
+//     - ignore
+//   - other error conditions:
+//     - none
+//
+// Examples/Test cases:
+//   - Happy path tests
+//     - average of n integers:
+//       - [1, 5, 87, 45, 8, 8] -> 25      // Actual value is 25.66666666666
+//       - [9, 47, 23, 95, 16, 52]) -> 40  // Actual value is 40.33333333333
+//       - [1, 2, 3, 4, 5] -> 3            // Actual value is 3
+//   - Edge case tests
+//     - exactly 1 element: [5] -> 5
+//
+// Data structure
+//   - inputs: Array
+//   - outputs: Number (integer)
+//
+// Algorithm
+//   - reduce integers with sum
+//   - divide result by number of integers
+//   - return floor of result
+
+function average(numbers) {
+  var sum = numbers.reduce(
+    function (accumulator, value) {
+      return accumulator + value;
+    }
+  );
+
+  return Math.floor(sum / numbers.length);
+}
+
+// test cases
+/* global show, log, theEnd */
+log(average([1, 5, 87, 45, 8, 8]), 25);
+log(average([9, 47, 23, 95, 16, 52]), 40);
+log(average([1, 2, 3, 4, 5]), 3);
+log(average([5]), 5);
+theEnd();
+      </script>
+    </pre>
+  </body>
+</html>

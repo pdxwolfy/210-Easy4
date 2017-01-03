@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+      <script>
+/* global show, log, theEnd */
+
+'use strict';
+
+// - Understand the problem
+//   * implicit knowledge
+//   * terminology
+//   * ask questions
+//   * input
+//   * output
+// - Test cases
+//   * edge cases
+//   * handling failure
+//   * ask questions
+// - Data Structure
+//   * input
+//   * output
+//   * rules/logic as data
+// - Algorithm
+//   * use language of data structure (map, split, etc)
+// - Abstraction
+//   * 1-2 sentences
+//*****************************************************************************
+// The problem:
+//   - Write a function that:
+//     - takes 2 array argumnents
+//       - may contain duplicates in either array or between the two arrays
+//     - returns a new array
+//       - content is union of elements in the two argument arrays
+//       - no duplication of element values
+// Test cases:
+//   - assume:
+//     - both arguments are always arrays
+//   - two empty array arguments
+//   - first argument is empty, second is not
+//   - second argument is empty, first argument is not
+//   - both arguments have multiple elements
+//     - no dups between arrays
+//     - with dups between arrays
+//     - with dups inside first array
+//     - with dups inside second array
+//     - with dups inside both arrays
+//     - sequence of elements in arrays matters
+// Data structure
+//   input: two array arguments
+//   output: new array
+//     - elements are occur in same sequence in which they would appear if
+//       the two array arguments were concatenated.
+// Algorithm
+//   - unionWith targetArray, sourceArray
+//     - reduce sourceArray starting with targetArray
+//       - if element from sourceArray is not in targetArray
+//         - append element from sourceArray to targetArray
+//     - return targetArray
+//
+//   - result is new empty array
+//   - unionWith result, array1
+//   - unionWith result, array2
+//   - return result
+// Abstraction
+
+function unionWith(targetArray, sourceArray) {
+  return sourceArray.reduce(
+    function appendTo(target, value) {
+      if (target.indexOf(value) === -1) {
+        target.push(value);
+      }
+
+      return target;
+    },
+    targetArray
+  );
+}
+
+function union(array1, array2) {
+  var result = [];
+
+  return unionWith(unionWith(result, array1), array2);
+}
+
+log(union([], []), []);                          // Empty arrays
+log(union([], [5, 3]), [5, 3]);                  // first array empty
+log(union([3, 5], []), [3, 5]);                  // second array empty
+log(union([3, 5], [2, 4]), [3, 5, 2, 4]);        // multiple elements in both
+log(union([3, 5, 4], [2, 3, 4]), [3, 5, 4, 2]);  // dups between arrays
+log(union([3, 5, 3], [2, 4]), [3, 5, 2, 4]);     // dups in first array
+log(union([3, 5], [2, 4, 4]), [3, 5, 2, 4]);     // dups in second array
+log(union([3, 5, 3], [2, 2, 4]), [3, 5, 2, 4]);  // dups in both arrays
+log(union([5, 3], [4, 2]), [5, 3, 4, 2]);        // sequence matters
+theEnd();
+      </script>
+    </pre>
+  </body>
+</html>

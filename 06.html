@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>javascript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="assert.js"></script>
+  </head>
+
+  <body>
+    <pre id="console">
+      <script>
+/* global show, log, theEnd */
+
+'use strict';
+
+// - Understand the problem
+//   * implicit knowledge
+//   * terminology
+//   * ask questions
+//   * input
+//   * output
+// - Test cases
+//   * edge cases
+//   * handling failure
+//   * ask questions
+// - Data Structure
+//   * input
+//   * output
+//   * rules/logic as data
+// - Algorithm
+//   * use language of data structure (map, split, etc)
+// - Abstraction
+//   * 1-2 sentences
+//*****************************************************************************
+// The problem:
+//   - Write a function that:
+//     - takes an Array of integers
+//     - returns a number
+//       - return value is multiplicative average of the Array element values
+//       - return value is rounded to 3 decimal places
+//     - assume array is non-empty.
+// Test cases:
+//   - argument contains 1 element
+//   - argument contains multiple elements with a whole number average
+//   - argument contains multiple elements with a fractional average
+//     - that rounds down
+//     - that rounds up
+//     - that rounds 5 upwards
+//   - product is 0
+//   - product is negative
+// Data structure
+//   input: array of numbers, all integers
+//   output: string representation of multiplicate average, rounded to 3 places
+// Algorithm
+//   - multiply all numbers in array together
+//   - divide by number of values
+//   - return rounded value
+// Abstraction
+
+function repeat(value, times) {
+  var result = [];
+
+  for (var index = 0; index < times; ++index) {
+    result.push(value);
+  }
+
+  return result;
+}
+
+function multiplicativeAverage(numbers) {
+  var product = numbers.reduce(
+    function (accum, value) {
+      return accum * value;
+    }
+  );
+
+  var average = product / numbers.length;
+  return average.toFixed(3);
+}
+
+log(multiplicativeAverage([5]), '5.000');
+log(multiplicativeAverage([5, 0]), '0.000');
+log(multiplicativeAverage([-3, -5, -2]), '-10.000');
+log(multiplicativeAverage([3, 5]), '7.500');
+log(multiplicativeAverage([2, 5, 7, 11, 13, 17]), '28361.667');
+
+var numbers = repeat(1, 8);
+numbers.push(5);
+log(multiplicativeAverage(numbers), '0.556');       // 0.555555...
+
+numbers = repeat(1, 8);
+numbers.push(4);
+log(multiplicativeAverage(numbers), '0.444');       // 0.444444...
+
+numbers = repeat(1, 9999);
+numbers.push(5556);
+log(multiplicativeAverage(numbers), '0.556');      // 0.5555
+theEnd();
+      </script>
+    </pre>
+  </body>
+</html>
